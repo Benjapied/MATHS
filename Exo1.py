@@ -1,5 +1,4 @@
 import matplotlib.pyplot as plt
-import math 
 
 def Phi1(teta):
     return ((teta - 1)**2) * (2*teta +1)
@@ -59,13 +58,13 @@ def MakeHermite(listX, listY, listZ, precision):
     return newListX, newListY
 
 
-hermiteListX = [2,5.6,4,8.6,7.6,9.6,8,6,2.6]
-hermiteListY = [7,6.8,9.6,8,5,5,3.2,2,2]
-hermiteListZ = [1,0.1,0.1,-2,-3,-5,0,3,-0.5]
+# hermiteListX = [2,5.6,4,8.6,7.6,9.6,8,6,2.6]
+# hermiteListY = [7,6.8,9.6,8,5,5,3.2,2,2]
+# hermiteListZ = [1,0.1,0.1,-2,-3,-5,0,3,-0.5]
 
-list1, list2 = MakeHermite(hermiteListX,hermiteListY,hermiteListZ, 100)
+# list1, list2 = MakeHermite(hermiteListX,hermiteListY,hermiteListZ, 100)
 
-#plt.axis((0, 50, 0, 50))
-plt.plot(list1,list2)
-plt.scatter(hermiteListX,hermiteListY)
-plt.show()
+# #plt.axis((0, 20, 0, 20))
+# plt.plot(list1,list2)
+# plt.scatter(hermiteListX,hermiteListY)
+# plt.show()

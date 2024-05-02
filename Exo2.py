@@ -1,5 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
+import Exo1 as e1
+import matplotlib.pyplot as plt
 
 class Point:
     def __init__(self, name, x, y):
@@ -72,10 +74,10 @@ class PointApp:
         if len(self.points) < 10:
             x, y = event.x, event.y
             name = chr(ord('A') + len(self.points))  # Nommer les points de A à J
-            point = Point(name, x, y)
+            point = Point(name, x, 700 - y)
             self.points.append(point)
             self.canvas.create_oval(x-3, y-3, x+3, y+3, fill="black")
-            self.points_listbox.insert(tk.END, f"{point.name}: ({point.x}, {point.y})")
+            self.points_listbox.insert(tk.END, f"{point.name}: ({point.x}, {700 - point.y})")
             self.create_slider(name)  # Créer le slider correspondant au point
         else:
             tk.messagebox.showwarning("Avertissement", "Le nombre maximal de points a été atteint (10).")
@@ -123,3 +125,10 @@ if __name__ == "__main__":
     print("Liste des abscisses:", x_coords)
     print("Liste des ordonnées:", y_coords)
     print("Liste des tangentes:", tangents)
+
+    list1, list2 = e1.MakeHermite(x_coords,y_coords,tangents,100)
+
+    plt.axis((0, 1200, 0, 700))
+    plt.scatter(x_coords,y_coords)
+    plt.plot(list1, list2)
+    plt.show()
