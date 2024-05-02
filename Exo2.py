@@ -15,6 +15,7 @@ class PointApp:
         self.master = master
         master.title("Point Creator")
         master.geometry("1200x700")  # Augmentation de la taille de la fenêtre globale
+        self.symetrie = False
 
         # Cadre principal
         self.main_frame = tk.Frame(master)
@@ -47,6 +48,12 @@ class PointApp:
         self.sliders = []
 
         self.draw_cartesian_coordinates()
+
+        self.checkbox_var = tk.BooleanVar()
+        self.checkbox_var.set(False)  # Valeur initiale de la case à cocher
+        self.checkbox = ttk.Checkbutton(master, text="Symétrie", variable=self.checkbox_var, command=self.checkbox_callback)
+        self.checkbox.pack()
+
 
         self.canvas.bind("<Button-1>", self.add_point)
 
@@ -111,11 +118,35 @@ class PointApp:
     def get_points_coordinates(self):
         x_coordinates = [point.x for point in self.points]
         y_coordinates = [point.y for point in self.points]
+
+        if self.symetrie:
+            max_x = max(x_coordinates)
+            for i in range(len(x_coordinates)):
+                x_coordinates.append(max_x - (x_coordinates[i] - max_x))
+                y_coordinates.append(y_coordinates[i])
+
         return x_coordinates, y_coordinates
 
     def get_points_tangents(self):
         tangents = [point.tangent for point in self.points]
+
+        if self.symetrie:
+            # Créer une nouvelle liste pour stocker les tangentes symétriques
+            symmetrical_tangents = []
+            for tangent in tangents:
+                symmetrical_tangents.append(-tangent)
+            # Concaténer les deux listes de tangentes
+            tangents += symmetrical_tangents
+
         return tangents
+    
+    def checkbox_callback(self):
+        if self.checkbox_var.get():
+            self.symetrie = True
+            print(self.symetrie)
+        else:
+            self.symetrie = False
+            print(self.symetrie)
 
 if __name__ == "__main__":
     
