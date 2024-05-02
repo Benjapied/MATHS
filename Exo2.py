@@ -82,18 +82,22 @@ class PointApp:
 
     def create_slider(self, name):
         slider_frame = tk.Frame(self.sliders_frame)
-        slider_frame.pack(expand=True)
+        slider_frame.pack()
 
-        label = tk.Label(slider_frame, text=name)
-        label.pack(side=tk.LEFT,expand=True)
+        label = tk.Label(slider_frame)
+        label.pack(side=tk.LEFT)
 
-        slider = ttk.Scale(slider_frame, from_=-5, to=5, orient="horizontal", command=lambda value, n=name: self.update_tangent(value, n))
-        slider.set(0)  
-        slider.pack(side=tk.LEFT,expand=True)
+        slider = ttk.Scale(slider_frame, from_=-5, to=5, orient="horizontal", command=lambda value, n=name, label=label: self.update_tangent(value, n, label))
+        slider.set(0)
+        slider.pack(side=tk.LEFT)
 
-        self.sliders.append((name, slider))
+        label_value = tk.Label(slider_frame, text=f"{name}")
+        label_value.pack(side=tk.LEFT)
 
-    def update_tangent(self, value, name):
+        self.sliders.append((name, slider, label_value))
+
+    def update_tangent(self, value, name, label):
+        label.config(text=int(float(value)))
         for point in self.points:
             if point.name == name:
                 point.tangent = int(float(value))
